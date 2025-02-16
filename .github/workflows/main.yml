@@ -1,0 +1,30 @@
+name: CICD demo for React to ubuntu
+
+on:
+  push:
+    branches:
+      - master  # Triggers on pushes to the master branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: SSH into Ubuntu VM and Deploy
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_USER: ${{ secrets.SSH_USER }}
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+      run: |
+        echo "$SSH_PRIVATE_KEY" > private_key && chmod 600 private_key
+
+        ssh -i private_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << 'EOF'
+          cd /var/www/simple-reactjs-app
+          git checkout master
+          git pull origin master
+          npm install
+          npm run build
+          sudo systemctl reload nginx
+        EOF
+
+        rm -f private_key
