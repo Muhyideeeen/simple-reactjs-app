@@ -1,12 +1,12 @@
 [{
 	"id": 1,
-	"name": "John Smith",
-	"email": "jsmith@test.com",
+	"name": "John Straut",
+	"email": "jstraut@test.com",
 	"phone": "123456789"
 }, {
 	"id": 2,
-	"name": "ABCD",
-	"email": "abcd@test.com",
+	"name": "Muhyideen Akeem",
+	"email": "muhyideen.akeem@test.com",
 	"phone": "987654321"
 }, {
 	"id": 3,
